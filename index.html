@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Kotlin Beginner's Guide</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            
+            html, body, div, span, applet, object, iframe,
+            h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+            a, abbr, acronym, address, big, cite, code,
+            del, dfn, em, img, ins, kbd, q, s, samp,
+            small, strike, strong, sub, sup, tt, var,
+            b, u, i, center,
+            dl, dt, dd, ol, ul, li,
+            fieldset, form, label, legend,
+            table, caption, tbody, tfoot, thead, tr, th, td,
+            article, aside, canvas, details, embed, 
+            figure, figcaption, footer, header, hgroup, 
+            menu, nav, output, ruby, section, summary,
+            time, mark, audio, video {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            font-size: 100%;
+            font: inherit;
+            vertical-align: baseline;
+            }
+            /* HTML5 display-role reset for older browsers */
+            article, aside, details, figcaption, figure, 
+            footer, header, hgroup, menu, nav, section {
+            display: block;
+            }
+            body {
+            line-height: 1;
+            }
+            ol, ul {
+            list-style: none;
+            }
+            blockquote, q {
+            quotes: none;
+            }
+            blockquote:before, blockquote:after,
+            q:before, q:after {
+            content: '';
+            content: none;
+            }
+            table {
+            border-collapse: collapse;
+            border-spacing: 0;
+            }
+            /*---------------------------------------------------------------*/
+            
+            body {
+                background-color: #202020;
+                color: #fff;
+                font-size: 1.25rem;
+                line-height: 2rem;
+            }
+            
+            /*--------------------------------------------------------------*/
+            
+            #navbar {
+                width: 20%;
+                float: left;
+                position: fixed;
+            }
+            
+            #navbar header {
+                text-align: center;
+                font-weight: bolder;
+                font-size: 1.5rem;
+                box-sizing: border-box;
+                padding: 1.5rem 0;
+            }
+            
+            #navbar > ul {
+                height: 35rem;
+                overflow-y: scroll;
+            }
+            
+            a.nav-link, #navbar ul ul li a {
+                text-decoration: none;
+                color: white;
+            }
+            
+            a.nav-link {
+                margin-left: 20px;
+            }
+            
+            #navbar ul ul li a {
+                margin-left: 40px;
+            }
+            
+            #navbar ul li, #navbar ul ul li {
+                border-top: .5px solid white;
+                border-bottom: .5px solid white;
+                padding-top: 5px;
+                padding-bottom: 5px;
+            }
+            
+            /*--------------------------------------------------------------*/
+            
+            #main-doc {
+                width: 80%;
+                float: right;
+                box-sizing: border-box;
+                padding-left: 5%;
+                padding-right: 5%;
+                overflow-x: hidden;
+            }
+            
+            .main-section {
+                margin: 1.25rem auto;
+            }
+            
+            .main-section header {
+                font-size: 1.5rem;
+                font-weight: bolder;
+                margin-top: 1.5rem;
+                margin-bottom: .5rem;
+            }
+            
+            .main-section h1 {
+                font-weight: bold;
+                margin-top: 1.25rem;
+                margin-bottom: .25rem;
+            }
+            
+            .main-section ul li {
+                list-style: square;
+                margin-left: 2rem;
+            }
+            
+            code {
+                overflow: auto;
+                background-color: white;
+                color: black;
+                font-family: monospace;
+                display: block;
+                width: 90%;
+                padding-left: 5%;
+                margin: 1rem auto;
+                border-radius: 3px;
+            }
+            
+            /*----------------------------------------------------------------------------*/
+            
+            @media (max-width: 600px) {
+            
+                #navbar {
+                    width: 100%;
+                    position: sticky;
+                    top: 0;
+                    float: none;
+                    background-color: #202020;
+                }
+            
+                #navbar > ul {
+                    height: 13rem;
+                }
+            
+                #main-doc {
+                    width: 100%;
+                    float: none;
+                    overflow-y: scroll;
+                }
+            
+            }
+
+        </style>
+    </head>
+    <body>
+        <nav id="navbar">
+            <header>Kotlin Beginner's Guide</header>
+            <ul>
+                <li><a href="#Getting_Started" class="nav-link">Getting Started</a></li>
+                    <ul>
+                        <li><a href="#whats-kotlin">What’s Kotlin?</a></li>
+                        <li><a href="#using-kotlin">Using Kotlin</a></li>
+                    </ul>
+                <li><a href="#Kotlin_Basics" class="nav-link">Kotlin Basics</a></li>
+                    <ul>
+                        <li><a href="#variables">Variables</a></li>
+                        <li><a href="#strings">Strings</a></li>
+                        <li><a href="#numbers">Numbers</a></li>
+                        <li><a href="#booleans">Booleans</a></li>
+                        <li><a href="#nullability">Nullability</a></li>
+                    </ul>
+                <li><a href="#Collections" class="nav-link">Collections</a></li>
+                    <ul>
+                        <li><a href="#arrays">Arrays</a></li>
+                        <li><a href="#lists">Lists</a></li>
+                        <li><a href="#maps">Maps</a></li>
+                    </ul>
+                <li><a href="#Control_Flow" class="nav-link">Control Flow</a></li>
+                    <ul>
+                        <li><a href="#looping">Looping</a></li>
+                        <li><a href="#if-expression">If Expression</a></li>
+                        <li><a href="#when-expression">When Expression</a></li>
+                        <li><a href="#functions">Functions</a></li>
+                    </ul>
+                <li><a href="#Conclusion" class="nav-link">Conclusion</a></li>
+            </ul>
+        </nav>
+        <main id="main-doc">
+            <section class="main-section" id="Getting_Started">
+                <header>Getting Started</header>
+                <h1 id="whats-kotlin">What’s Kotlin?</h1>
+                <p>Kotlin is a modern programming language maintained as an open source project by JetBrains, a world leader in IDEs. Back in 2011, JetBrains was writing primarily Java code and looking for a new programming language to help make them more efficient programmers. Ultimately, they decided to create a new programming language called Kotlin.</p>
+                <p>Over the years Kotlin has grown to become a drop-in replacement for Java, allowing Java developers to easily upgrade to a more expressive language. Not only that, in May of 2017 Google announced Kotlin would be an officially supported language on the Android platform. With JetBrains and now Google supporting the project, it’s no surprise that Kotlin has seen such a large rise in popularity.</p>
+                <p>The main benefits of using Kotlin are as follows:</p>
+                <ul>
+                    <li>Kotlin allows writing less code;</li>
+                    <li>it solves developer challenges;</li>
+                    <li>adopting Kotlin is easy;</li>
+                    <li>Kotlin is fully compatible with Java;</li>
+                    <li>it imposes no runtime overhead</li>
+                    <li>Kotlin has a strong community;</li>
+                    <li>Kotlin suits for the multi-platform development;</li>
+                    <li>Kotlin development offers more safety.</li>
+                </ul>
+                <h1 id="using-kotlin">Using Kotlin</h1>
+                <p>To get started with Kotlin, the first thing you’ll need is somewhere to write code. The easiest place to try writing Kotlin code is the try.kotlinlang.org website. It offers lots of Kotlin practice, and if you sign-in (it has most major social networks as sign-in options), you can even create your own programs that it will save for you in the cloud (once signed-in click the folder button with a plus sign on it to create a new program).</p>
+                <p>You can also practice using Kotlin in an IDE like IntelliJ IDEA. To create a Kotlin project in IntelliJ IDEA follow these steps.</p>
+                <p>If you’d like to use Kotlin in an Android project, check out this page for instructions.</p>
+            </section>
+            <section class="main-section" id="Kotlin_Basics">
+                <header>Kotlin Basics</header>
+                <h1 id="variables">Variables</h1>
+                <p>To create a variable in Kotlin we use the var keyword.</p>
+                <code><pre>var greeting: String = "Hello World!"</pre></code>
+                <p>This code tells the computer to create a new variable named ‘greeting’ which will be of type String and contain the text, “Hello World!”.</p>
+                <p>Also, you can usually omit the type argument. If Kotlin can figure out what type something is, you don’t need to explicitly specify it. A more common way of writing the above example would be:</p>
+                <code><pre>var greeting = "Hello World!" // The type is inferred to be a String</pre></code>
+                <p>Once you’ve created a variable you can easily modify it by setting it equal to something else:</p>
+                <code><pre>var greeting = "Hello World!"
+greeting = "Hello Kotlin!"</pre></code>
+                <p>Though sometimes when you create a variable, you’d rather it not be able to change. In Kotlin there are two types of variables: mutable and immutable. Mutable means that the variable CAN be changed, and immutable means that it CANNOT be changed. To create a mutable variable we use the var keyword like we’ve been doing. However, to create an immutable variable we need to use the val keyword.</p>
+                <p>If we change our greeting example to use val instead of var, then the second line will give us a compiler error because we’re no longer allowed to modify our greeting variable:</p>
+                <code><pre>val greeting = "Hello World!"
+greeting = "Hello Kotlin!" // Compiler error: val cannot be reassigned</pre></code>
+                <h1 id="strings">Strings</h1>
+                <p>In our example above we’ve been making use of the String type. Let’s see how we can combine two Strings together by using the + operator.</p>
+                <code><pre>val language = "Kotlin"
+val creator = "JetBrains"
+val description = language + " is created by " + creator
+// description = "Kotlin is created by JetBrains"</pre></code>
+                <p>Combining Strings together like this is known as concatenation. Sometimes using the + operator to concatenate can be a bit cumbersome. When that’s the case, it’s usually better to use something known as String Templates. String Templates let us use variables inside double quotes by prefacing the variable with a $:</p>
+                <code><pre>val releaseDate = "July 2011"
+val releaseString = "Kotlin was released in $releaseDate"
+// releaseString = "Kotlin was released in July 2011"</pre></code>
+                <p>The resulting releaseString contains the value of releaseDate along with the rest of the String. We could’ve accomplished the same thing with the + operator, but this way is much cleaner and easier to read.</p>
+                <p>For these examples we’ve been using the val keyword which means that we can’t change the String after creating it. Remember, if you want to be able to modify a variable after creating it, just use the var keyword.</p>
+                <h1 id="numbers">Numbers</h1>
+                <p>Along with Strings Kotlin also offers several numeric types. The most important of these are Int, Long, Float, and Double. Int and Long are used for whole numbers, whereas Float and Double are used for decimal values. Also, Int and Float each use 32 bits to store their values, whereas Long and Double use 64. So if you need to store a really big number you’d use a Long or Double instead of an Int or Float.</p>
+                <p>By default, any integer values will be typed as Int and any decimal values will be typed as Double:</p>
+                <code><pre>val num1 = 42 // Int
+val num2 = 3.14 // Double</pre></code>
+                <p>If you’d like to declare a number as a Float or Long, you need to add an ‘f’ or ‘L’ to the end of the number:</p>
+                <code><pre>val num1 = 42L // Long
+val num2 = 3.14f // Float</pre></code>
+                <p>You can also convert between different numeric types by using the toType functions:</p>
+                <code><pre>val num1 = 42.toFloat() // Float
+val num2 = num1.toDouble() // Double</pre></code>
+                <p>Also, when using Kotlin you can use underscores to make numbers more readable:</p>
+                <code><pre>val distToMoon = 92_960_000 // miles (inferred type Int)</pre></code>
+                <h1 id="booleans">Booleans</h1>
+                <p>Kotlin also contains a Boolean type. Boolean types are used to represent either a true or false value. To set a Boolean variable use the true or false keywords:</p>
+                <code><pre>val isGoodDay = true
+val isBadDay = false</pre></code>
+                <h1 id="nullability">Nullability</h1>
+                <p>In most languages, when you create a variable but don’t set it equal to something, it gets a value of NULL, which can be thought of as not being equal to anything. NULL values cause issues in many programs when the program tries to do something with a NULL value. For example:</p>
+                <code><pre>// java code
+String address;
+println(address);</pre></code>
+                <p>The above code creates a String variable named ‘address’ and then tries to print out the address before it has been set. This results in a NullPointerException and crashes the program.</p>
+                <p>In Kotlin we handle NULL a bit differently. Instead of variables being defaulted to NULL, it’s actually an error to not initialize a variable:</p>
+                <code><pre>val x: Int // Error - variable must be initialized</pre></code>
+                <p>Also, you can’t just set a variable equal to NULL. You’d need to first mark that variable’s type as nullable by using questionmark:</p>
+                <code><pre>val x: Int = null // Error - null cannot be a value for non-null type Int
+val x: Int? = null // OK
+val y: String = null // Error - null cannot be a value for non-null type String
+val y: String? = null // OK</pre></code>
+                <p>There’s also a couple of operators to help us deal with NULL values. Let’s look at the following example:</p>
+                <code><pre>val name: String? = null
+println(name.length) // Error - Only safe (?.) or non-null asserted (!!.) calls are allowed on a nullable receiver of type String?</pre></code>
+                <p>We declare a nullable String variable called ‘name’, and set it equal to null. Then we try to print the length of our String. However, since Kotlin knows that name might be NULL it shows us an error. To fix this error we have two options, we can either assert (!!) that name isn’t NULL, or we can use what’s known as a safe call (?).</p>
+                <p>Using a safe call (e.g. name?.length) means that if name is NULL, instead of trying to get the length of a NULL object and causing an error, it will just return NULL:</p>
+                <code><pre>val name: String? = null
+println(name?.length) // prints “null”</pre></code>
+                <p>You would use a non-null assertion (!!) when you know for sure that a nullable variable cannot be null, as shown here:</p>
+                <code><pre>var name: String? = null
+name = "Treehouse"
+println(name!!.length) // prints "9"</pre></code>
+            </section>
+            <section class="main-section" id="Collections">
+                <header>Collections</header>
+                <p>A collection contains multiple items that can be accessed through subscripting. Kotlin offers three main types of collections: Arrays, Lists, and Maps.</p>
+                <h1 id="arrays">Arrays</h1>
+                <p>An array is an indexed collection of items that all have the same type. To create an array, we use the arrayOf function:</p>
+                <code><pre>val cardNames: Array = arrayOf("Jack", "Queen", "King")</pre></code>
+                <p>And just like earlier, as long as Kotlin can figure out what type our variable is, we don’t need to specify a type:</p>
+                <code><pre>val cardNames = arrayOf("Jack", "Queen", "King")</pre></code>
+                <p>To access an item from the array we use the index (starting at 0) of the item we’d like to access. So to access the first item in the array we would use:</p>
+                <code><pre>val firstCard = cardNames[0] // firstCard = "Jack"</pre></code>
+                <p>To replace an existing item in the array, just subscript that item and set it equal to a different value:</p>
+                <code><pre>cardNames[0] = "Ace"</pre></code>
+                <p>Arrays are fixed-size; once created, there’s no way to add or remove items from an array. If you’d like to add and remove items from a collection, try using a List.</p>
+                <h1 id="lists">Lists</h1>
+                <p>In Kotlin there are two types of List: List and MutableList. The List class functions pretty similarly to an Array, except that you can’t modify the items in a List. However, the MutableList class lets us modify the items in the list as well as add and remove items. To create a new MutableList we use the mutableListOf function:</p>
+                <code><pre>val cards = mutableListOf("Jack", "Queen", "King")</pre></code>
+                <p>Using a MutableList gives us several options for adding/removing items:</p>
+                <code><pre>cards.add("Ace") // Jack, Queen, King, Ace
+cards.remove("Jack") // Queen, King, Ace
+cards.clear() // empty list
+cards.addAll("Jack", "Queen", "King", "Ace") // Jack, Queen, King, Ace</pre></code>
+                <h1 id="maps">Maps</h1>
+                <p>The last important collection type is a Map (and MutableMap). Maps let us store key-value pairs and access the values by providing the keys.</p>
+                <p>For example, if we wanted to store numeric information along with our card data we could create a map like this:</p>
+                <code><pre>val cards = mapOf("Jack" to 11, "Queen" to 12, "King" to 13)</pre></code>
+                <p>Above we have specified the card names as the keys and have mapped them to their corresponding values. Here we’re using String keys and Int values, but we’re not restricted to just Strings and Ints; you can use any types in a Map.</p>
+                <p>To access a specific card, just use the key to retrieve the value:</p>
+                <code><pre>val jackValue = cards["Jack"] // 11</pre></code>
+                <p>If we’d like to add items to our cards Map, we’ll first need to change it to a MutableMap, and then we can just set the new values:</p>
+                <code><pre>val cards = mutableMapOf("Jack" to 11, "Queen" to 12, "King" to 13)
+cards["Ace"] = 1</pre></code>
+                <p>You can also use the toMutableMap function to turn a Map into a MutableMap:</p>
+                <code><pre>val cards = mapOf("Jack" to 11, "Queen" to 12, "King" to 13)
+val mutableCards = cards.toMutableMap()
+mutableCards["Ace"] = 1</pre></code>
+            </section>
+            <section class="main-section" id="Control_Flow">
+                <header>Control Flow</header>
+                <h1 id="looping">Looping</h1>
+                <p>In Kotlin there are two types of loops: for loops and while loops. You can use a for loop to iterate through a collection like this:</p>
+                <code><pre>val cards = mutableListOf("Jack", "Queen", "King") 
+for (card in cards) { 
+    println(card) 
+}</pre></code>
+                <p>The println function will print out the value of whatever is between the parentheses. So this code prints each card on a new line:</p>   
+                <code><pre>Jack 
+Queen 
+King</pre></code>
+                <p>A for loop can also be used to loop over a range of numbers. To print the numbers 1 through 10 you could use the following for loop.</p>
+                <code><pre>for (i in 1..10) {
+    println(i)
+}</pre></code>
+                <p>However, if you wanted to loop down from 10 to 1, instead of two dots you would need the downTo operator:</p>
+                <code><pre>for (i in 10 downTo 1) {
+    println(i)
+}</pre></code>
+                <p>You can also use a for loop to loop through a Map. This code loops through the cards Map and prints out the name and value of each card:</p>
+                <code><pre>val cards = mapOf("Jack" to 11, "Queen" to 12, "King" to 13)
+for ((name, value) in cards) {
+    println("$name, $value")
+}</pre></code>
+                <p>In addition to for loops, Kotlin also offers a while loop. While loops are used to loop until a certain condition is met:</p>
+                <code><pre>while (stillDownloading) {
+    println("Downloading…")
+}</pre></code>
+                <p>This code will print “Downloading…” until the stillDownloading variable is false.</p>
+                <h1 id="if-expression">If Expression</h1>
+                <p>Most languages have an if statement, but in Kotlin we have an if expression (it returns a value). So in addition to using if statements the normal way:</p>
+                <code><pre>val a = 5
+val b = 3
+var aIsBigger = false
+if (a > b) {
+   aIsBigger = true
+} else {
+   aIsBigger = false
+}</pre></code>
+                <p>We can also use them to set our variables (which lets us use a val instead of a var!):</p>
+                <code><pre>val aIsBigger = if (a > b) {
+    true
+} else {
+    false
+}</pre></code>
+                <p>Not only that, if there’s only one line between the brackets, then the brackets are optional:</p>
+                <code><pre>val aIsBigger = if (a > b) true else false</pre></code>
+                <h1 id="when-expression">When Expression</h1>
+                <p>Instead of a switch statement, in Kotlin we get a when expression. You can use a when expression to compare a value to multiple values and do something different based on which value it equals. Here’s an example that takes in the integer value of a card and prints out the card’s name:</p>
+                <code><pre>when (cardInt) {
+    11 -> println("Jack")
+    12 -> println("Queen")
+    13 -> println("King")
+}</pre></code>
+                <p>Just like an if expression, a when expression can be used to return value. So we could set up a cardName variable like this:</p>
+                <code><pre>val cardName = when (cardInt) {
+    11 -> "Jack"
+    12 -> "Queen"
+    13 -> "King"
+    else -> "Other"
+}</pre></code>
+                <p>Notice that we needed to include an else branch. If you’re using a when to return a value, then it needs to be exhaustive. Since there are lots of integers our when expression doesn’t account for (e.g. -107865), we need to include the else branch to make sure that cardName gets set to something.</p>
+                <h1 id="functions">Functions</h1>
+                <p>Functions are blocks of code that you can use to simplify your programs. For example, println is a function that takes in a variable and prints its value to the screen.</p>
+                <p>In Kotlin we can create our own functions by using the ‘fun’ keyword and then providing a name for the function:</p>
+                <code><pre>fun printJack() {
+    println("Jack")
+}</pre></code>
+                <p>We can also add parameters to our function:</p>
+                </pre></code>fun printCard(cardName: String, cardValue: Int) {
+    println("$cardName = $cardValue")
+}</pre></code>
+                <p>Another cool thing about Kotlin is that when you find yourself writing a function with only a return statement, you can omit the brackets and return keyword and instead opt for an equals sign:</p>
+                <code><pre>fun getCardString(cardName: String, cardValue: Int): String = "$cardName = $cardValue"</pre></code>
+                <p>Kotlin can even infer that the return type will be a String. There’s nothing wrong with declaring your return types, but in Kotlin it’s not always necessary:</p>
+                <code><pre>fun getCardString(cardName: String, cardValue: Int) = "$cardName = $cardValue"</pre></code>
+            </section>
+            <section class="main-section" id="Conclusion">
+                <header>Conclusion</header>
+                <p>If you’ve made it this far, then congratulations! You’ve now got a good base to start building some serious Kotlin knowledge. It’s a lot to take in, but we’ve really only scratched the surface of Kotlin. There’s so much more to learn, and here at Treehouse we’re working on courses to provide you with all the Kotlin learning that you need. Stay tuned for more!</p>
+                <p>If you want to learn the basics of Kotlin, take our Kotlin for Java Developers course. It’s a great course that builds a headless solitaire app, and don’t worry if you’re not already a Java developer. After what you’ve learned in this post, you’ll have no trouble following along!</p>
+            </section>
+        </main>
+        <script src="https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js"></script>
+    </body>
+</html>
